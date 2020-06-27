@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sixlab.mine.dao.dao.TableMapper">
+
+  <select id="check" parameterType="java.lang.String" resultType="String">
+    show TABLES like #{tableName}
+  </select>
+
+  <insert id="create">
+    CREATE TABLE `${tableName}`
+    (
+    `id` int(0) NOT NULL AUTO_INCREMENT,
+
+    <foreach item="item" collection="cols">
+        `${item.name}` ${item.val} NULL,
+    </foreach>
+
+    PRIMARY KEY (`id`)
+    )
+  </insert>
+
+  <delete id="drop">
+    DROP TABLE IF EXISTS `${tableName}`
+  </delete>
+
+  <insert id="add">
+    INSERT INTO `${tableName}`
+        <foreach item="item" collection="cols" separator="," open="(" close=")">
+          `${item.name}`
+        </foreach>
+    VALUES
+        <foreach item="item" collection="cols" separator="," open="(" close=")">
+          #{item.val}
+        </foreach>
+  </insert>
+
+  <delete id="del">
+    delete from `${tableName}`
+    where id = #{id}
+  </delete>
+
+  <update id="update">
+    UPDATE `${tableName}`
+    SET
+        <foreach item="item" collection="cols" separator=",">
+          `${item.name}` = #{item.val}
+        </foreach>
+    WHERE `id` = ${id}
+  </update>
+
+  <select id="selectById" resultType="java.util.Map">
+    select *
+    from `${tableName}`
+    where id = #{id}
+  </select>
+
+  <select id="query" resultType="java.util.Map">
+    select
+      <foreach item="item" collection="cols" separator=",">
+        ${item}
+      </foreach>
+    from `${tableName}`
+      <foreach item="item" collection="cnds" separator=" AND " open=" where ">
+        ${item}
+      </foreach>
+    <if test=" orders != null and orders != '' ">
+      order by ${orders}
+    </if>
+  </select>
+
+</mapper>

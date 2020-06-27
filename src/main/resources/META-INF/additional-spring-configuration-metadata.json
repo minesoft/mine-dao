@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "mine.dao.tables",
+      "type": "java.util.List",
+      "description": "Description for mine.dao.tables."
+    }
+  ]
+}

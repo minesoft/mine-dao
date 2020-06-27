@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  aop:
+    auto: true
+
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml

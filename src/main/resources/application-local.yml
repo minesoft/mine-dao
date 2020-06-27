@@ -1,0 +1,17 @@
+server:
+  port: 11111
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: qwe123
+
+logging:
+  config: classpath:logback-console.xml
+
+mine:
+  dao:
+    alias:
+      leagueStage: raw_lol_league_stage
+      information: raw_kog_information
